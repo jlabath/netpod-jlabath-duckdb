@@ -1,4 +1,4 @@
-# netpod-duckdb
+# netpod-jlabath-duckdb
 netpod interface to duckdb
 
 ### to run the sample babashka script
