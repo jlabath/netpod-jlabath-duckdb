@@ -50,12 +50,12 @@
 ;;before running do
 ;;cargo build --release
 ;;to build the binary
-(pods/with-pod "./target/release/netpod-duckdb"
+(pods/with-pod "./target/release/netpod-jlabath-duckdb"
   ;; require is not suitable in macros
   ;; but one can also resolve things dynamically using resolve such as below
-  (let [query (resolve 'netpod.duckdb/query)
-        exec (resolve 'netpod.duckdb/exec)
-        append (resolve 'netpod.duckdb/append)]
+  (let [query (resolve 'netpod.jlabath.duckdb/query)
+        exec (resolve 'netpod.jlabath.duckdb/exec)
+        append (resolve 'netpod.jlabath.duckdb/append)]
     (println @(exec "CREATE TABLE contacts(id BIGINT, first_name VARCHAR, last_name VARCHAR, email VARCHAR)"))
     (println @(exec (to-sql contact-ins {:id 1
                                          :first_name "John"

@@ -1,6 +1,7 @@
 # netpod-jlabath-duckdb
-netpod interface to duckdb
 
-### to run the sample babashka script
+[netpod](https://github.com/jlabath/netpod) interface to [DuckDB](https://duckdb.org/)
+
+### Usage
 
     DUCK_DB=sample.duckdb ./client.clj

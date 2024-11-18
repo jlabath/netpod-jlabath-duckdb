@@ -109,7 +109,7 @@ fn handle_describe() -> Result<Response> {
         name: "append".to_string(),
     };
     let ns = Namespace {
-        name: "netpod.duckdb".to_string(),
+        name: "netpod.jlabath.duckdb".to_string(),
         vars: vec![q_var, exec_var, append_var],
     };
     let r = DescribeResponse {
@@ -214,17 +214,19 @@ fn handle_invoke(
 ) -> Result<Response> {
     let var_name = req.var.unwrap_or("no var in request".to_string());
     match var_name.as_str() {
-        "netpod.duckdb/query" => {
+        "netpod.jlabath.duckdb/query" => {
             match do_query(db_name, lock, req.args.unwrap_or("".to_string())) {
                 Ok(v) => Ok(invoke_response(req.id.unwrap_or("".to_string()), v)),
                 Err(e) => Ok(err_response(req.id, e)),
             }
         }
-        "netpod.duckdb/exec" => match do_exec(db_name, lock, req.args.unwrap_or("".to_string())) {
-            Ok(v) => Ok(invoke_response(req.id.unwrap_or("".to_string()), v)),
-            Err(e) => Ok(err_response(req.id, e)),
-        },
-        "netpod.duckdb/append" => {
+        "netpod.jlabath.duckdb/exec" => {
+            match do_exec(db_name, lock, req.args.unwrap_or("".to_string())) {
+                Ok(v) => Ok(invoke_response(req.id.unwrap_or("".to_string()), v)),
+                Err(e) => Ok(err_response(req.id, e)),
+            }
+        }
+        "netpod.jlabath.duckdb/append" => {
             match do_append(db_name, lock, req.args.unwrap_or("".to_string())) {
                 Ok(v) => Ok(invoke_response(req.id.unwrap_or("".to_string()), v)),
                 Err(e) => Ok(err_response(req.id, e)),
@@ -329,7 +331,7 @@ fn main() -> Result<()> {
 
     // Bind to the Unix socket
     let listener = UnixListener::bind(socket_path)?;
-    eprintln!("netpod.duckdb server listening on {}", socket_path);
+    eprintln!("netpod.jlabath.duckdb server listening on {}", socket_path);
 
     //rw lock for write operations
     let lock = Arc::new(RwLock::new(()));
